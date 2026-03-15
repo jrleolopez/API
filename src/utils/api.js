@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:3000";
+// En tu archivo de configuración o donde definas la API
+const API_URL = "https://api-u1cj.onrender.com";
 
 export async function apiFetch(endpoint, method, body, token) {
   const headers = { "Content-Type": "application/json" };
@@ -19,4 +20,7 @@ export async function apiFetch(endpoint, method, body, token) {
   return await response.json();
 }
 
-//apiFetch("/expenses/list", "GET", null, "adñsjfladjsfñalsjdfñlakjsdñflj")
+// Ejemplo de uso:
+apiFetch("/expenses/list", "GET", null, "adñsjfladjsfñalsjdfñlakjsdñflj")
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
