@@ -10,24 +10,25 @@ app.use(cors());
 app.use(express.json());
 
 
+// Conexión a MongoDB Atlas
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 })
-
 .then(() => console.log('Conectado a MongoDB'))
-.catch(err => console.error('Error de conexión:', err));
-
-
-// Conexión a la base de datos
-mongoose
-.connect(process.env.MONGO_URI_)
-  .then(() => console.log("Conexión exitosa a MongoDB"))
-  .catch((error) => console.error("Error conectando a MongoDB:", error));
+.catch(error => console.error('Error de conexión:', error));
 
 // Rutas
-app.get("/", (req, res) => {
-  res.send("Servidor funcionando correctamente");
+app.get('/api/items', async (req, res) => {
+  const items = await Item.find();
+  res.json(items);
+});
+
+// Ruta para crear un item
+app.post('/api/items', async (req, res) => {
+  const newItem = new Item({ name: req.body.name });
+  await newItem.save();
+  res.json(newItem);
 });
 
 app.use("/categories", require("./routes/categoryRoutes"));
@@ -35,7 +36,5 @@ app.use("/auth", require("./routes/authRoutes"));
 app.use("/expenses", require("./routes/expenseRoutes"));
 
 // Inicia el servidor
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () =>
-  console.log(`Servidor corriendo en http://localhost:${PORT}/`),
-);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
