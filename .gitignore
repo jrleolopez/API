@@ -1,5 +1,0 @@
-# Directorio de dependencias de Node
-node_modules/
-
-# Archivos de entorno que podrían contener variables sensibles
-.env
