@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000";
+const API_URL = "https://api-u1cj.onrender.com";
 
 export async function apiFetch(endpoint, method, body, token) {
   const headers = { "Content-Type": "application/json" };
